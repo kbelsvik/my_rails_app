@@ -1,5 +1,5 @@
 node {
   state "install"
-  sh "ruby -v
-      bundle -v"
+  sh "ruby -v"
+  sh "bundle -v"
 }
