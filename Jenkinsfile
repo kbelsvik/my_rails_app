@@ -4,7 +4,8 @@ node {
     nvm()
     sh 'bundle install'
     sh 'bundle exec rake db:drop db:create'
-    sh 'bundle exec rspec --tag ~fail'
+    sh 'bundle exec rspec --tag ~fail -r rspec_junit_formatter --format RspecJunitFormatter -o test.xml'
+    junit allowEmptyResults: true, testResults: test.xml"
 }
 
 def nvm(options=[version:'node']) {
