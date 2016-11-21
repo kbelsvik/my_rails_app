@@ -1,11 +1,15 @@
 node {
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/kbelsvik/my_rails_app']]])
+    stage 'checkout'
+    checkout scm
+    stage 'setup'
     rbenv()
     nvm()
     sh 'bundle install'
     sh 'bundle exec rake db:drop db:create'
+    stage 'unit tests'
     sh 'bundle exec rspec --tag ~fail -r rspec_junit_formatter --format RspecJunitFormatter -o test.xml'
-    junit allowEmptyResults: true, testResults: test.xml"
+    stage 'archive'
+    junit allowEmptyResults: true, testResults: "test.xml"
 }
 
 def nvm(options=[version:'node']) {
