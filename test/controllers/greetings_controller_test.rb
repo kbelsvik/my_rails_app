@@ -6,4 +6,8 @@ class GreetingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should fail", :fail => true do
+    fail
+  end
+
 end
