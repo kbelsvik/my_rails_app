@@ -45,4 +45,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'rspec_junit_formatter'
   gem 'simplecov', require: false
+  gem 'simplecov-rcov', :require => false
 end

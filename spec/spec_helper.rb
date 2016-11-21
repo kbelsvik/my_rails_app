@@ -19,6 +19,13 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
 require 'simplecov'
+require 'simplecov-rcov'
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::RcovFormatter
+]
+
 SimpleCov.start
 
 RSpec.configure do |config|
