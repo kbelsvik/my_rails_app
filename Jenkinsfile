@@ -7,9 +7,13 @@ node {
     sh 'bundle install'
     sh 'bundle exec rake db:drop db:create'
     stage 'unit tests'
-    sh 'bundle exec rspec --tag ~fail -r rspec_junit_formatter --format RspecJunitFormatter -o test.xml'
+    return_code = sh returnStatus: true, script: 'bundle exec rspec --tag ~fail -r rspec_junit_formatter --format RspecJunitFormatter -o test.xml'
+    if (return_code != 0) {
+        currentBuild.result = 'FAILURE'
+    }
     stage 'archive'
     junit allowEmptyResults: true, testResults: "test.xml"
+    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'SimpleCov report'])
 }
 
 def nvm(options=[version:'node']) {
