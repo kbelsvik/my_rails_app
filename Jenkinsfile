@@ -4,7 +4,7 @@ node {
     nvm()
     sh 'bundle install'
     sh 'bundle exec rake db:drop db:create'
-    sh 'bundle exec rake test --tag ~fail'
+    sh 'bundle exec rspec --tag ~fail'
 }
 
 def nvm(options=[version:'node']) {
